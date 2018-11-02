@@ -1,0 +1,259 @@
+*{
+    text-decoration: none;
+    list-style: none;
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+#header{
+    min-width:1090px;
+    position:relative;
+}
+
+.hide{
+    display: none;
+}
+.icon-color-c{
+    color:#ccc;
+}
+.icon-color-w{
+    color:white;
+}
+/*最上层的导航*/
+.he-bg{
+    background-color:#333;
+    height:36px;
+}
+.he-bg a{
+    color:#ccc;
+    font-size:12px;
+    font-family:"Microsoft Yahei","微软雅黑";
+}
+/*a标签鼠标悬停时的效果*/
+.he-bg a:hover{
+    color:white;
+    text-decoration: none;
+}
+.head-radio{
+    display: flex;
+    justify-content: space-between;
+    margin:0 auto;
+    width:1090px;
+    position:relative;
+}
+.head-radio>div{
+    display: flex;
+    line-height:36px;
+}
+.head-radio>div:first-child>ul{
+    margin-left:30px;
+    position:absolute;
+    left:120px;
+    transition-duration: .2s;
+}
+.head-radio>div:first-child>ul a{
+    color:#b4a078;
+    text-decoration: underline;
+}
+.head-radio>div:first-child>ul a:hover{
+    color:white;
+    text-decoration: none;
+}
+.head-radio>div:last-child>ul>li{
+    float:left;
+    margin-left:16px;
+}
+.head-radio>div:last-child>ul>li+li:not(:last-child)>a{/*边框*/
+    border-right:1px solid #ccc;
+    padding-right:12px;
+}
+/*设置客户服务下拉菜单*/
+.head-radio>div:last-child>ul>li>ul{
+    border:1px solid #dddddd;
+    box-shadow:0 0 2px #b4a078;
+    text-align:center;
+    background: white;
+    position:relative;
+    z-index: 9;
+}
+.head-radio>div:last-child>ul>li>ul>li{
+    position:relative;
+    height:36px;
+}
+.head-radio>div:last-child>ul>li>ul>li:not(:last-child)>a{
+    border-bottom:1px solid #ccc;
+    padding-bottom:9px;
+}
+.head-radio>div:last-child>ul>li>ul>li>a:hover{
+    color:#b4a078
+}
+.head-radio>div:last-child>ul>li>ul>li>div{
+    float: left;
+    margin-top:-4px;
+    margin-left:21px;
+    width:10px;height:10px;
+    background-color:white;
+    transform: rotate(45deg);
+    position:absolute;top:0;
+}
+/*设置下拉二维码*/
+#b-code{
+    position:relative;
+}
+#b-code>div{
+    border:1px solid #dddddd;
+    box-shadow:0 0 2px #b4a078;
+    position: absolute;
+    height: 144px;
+    z-index: 9;
+}
+#b-code>div>div{
+    margin-top:-4px;
+    margin-left:22px;
+    width:10px;height:10px;
+    background-color:white;
+    transform: rotate(45deg);
+}
+#b-code span{
+    position:absolute;
+    color:#b4a078;
+    top:110px;left:22px;
+}
+/*搜索行*/
+.nav{
+    width:1090px;
+    margin:0 auto;
+}
+.nav .logo{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 50px;
+}
+.nav .logo .search input{
+    width:252px;height:22px;
+    border:0;
+    border-bottom:1px solid #b4a078;
+    padding-left:8px;
+    outline: none;
+    position:relative;
+    z-index: 0;
+    background:none;
+}
+.nav .logo .search{
+ position:relative;
+    margin-left:135px;
+}
+.nav .logo .search i{
+    font-size:30px;
+    color:#b4a078;
+}
+.nav .logo .search .count{
+    position: absolute;
+    height:20px;width:20px;
+    border-radius: 20px;
+    background: #d4282d;
+    color:white;
+    top:0;left:300px;
+    text-align:center;
+    line-height:20px;
+}
+/*页头导航栏*/
+.nav .details ul{
+    position: relative;
+}
+.nav .details>ul>li{
+    float: left;
+    padding:0 24px;
+    margin:6px 0;
+}
+.nav .details ul li a{
+    font-family: "Microsoft Yahei","微软雅黑",verdana;
+    font-size:14px;
+    font-weight:700;
+    color:#000;
+    padding-bottom:6px;
+}
+.nav .details>ul>li>a:hover{
+    color:#b4a078;
+    border-bottom: 3px solid #b4a078;
+    text-decoration: none;
+}
+/*家居*/
+.nav .details .drop-down{
+    position:absolute;
+    /*display: flex;*/
+    box-shadow: 0 0 1px 1px rgba(0,0,0,.1);
+    padding:15px;
+}
+/*单独设置下拉菜单的位置*/
+.nav .details .furnishing{
+    left:0;top:55px;
+}
+    /*三角形*/
+.nav .details .drop-down>div{
+    position:absolute;
+
+    width:20px;height:20px;
+    background-color:white;
+    transform: rotate(45deg);
+    border-top:1px solid #ddd;
+    border-left:1px solid #ddd;
+    float:left;
+}
+/*单独设置三角形的位置*/
+.nav .details .furnishing>div{
+    left:102px;top:-10px;
+}
+.nav .details .drop-down ul{
+    display: flex;
+    flex-direction: column;
+    float:left;
+
+}
+.nav .details .drop-down ul li {
+    width:140px;height:50px;
+    display: inline-block;
+    text-align:left;
+    line-height: 50px;
+    margin:0 10px;
+}
+.nav .details .drop-down ul li:first-child{
+    border-bottom:1px solid #ddd;
+}
+.nav .details .drop-down ul li:first-child>a:hover{
+    text-decoration: none;
+}
+.nav .details .drop-down ul li a{
+    font-size:14px;
+    font-weight:400;
+}
+.nav .details .drop-down ul li img{
+    vertical-align: middle;
+    margin-right:15px;
+}
+.nav .details .drop-down ul li:first-child a{
+    font-weight: 800;
+}
+.nav .details .drop-down ul li+li a:hover{
+    color:#b4a078;
+    text-decoration: none;
+}
+/*单独设置鞋包*/
+/*单独设置下拉菜单的位置*/
+.nav .details .shoes{
+    left:0;top:55px;}
+/*单独设置三角形的位置*/
+.nav .details .shoes>div{
+    left:195px;top:-10px;}
+
+
+/*单独设置服装*/
+/*单独设置下拉菜单的位置*/
+.nav .details .clothes{
+    left:0;top:55px;}
+/*单独设置三角形的位置*/
+.nav .details .clothes>div{
+    left:283px;top:-10px;}
+

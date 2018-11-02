@@ -2,11 +2,188 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>淘买买，就要你最喜欢的</title>
+    <title>淘买买，淘你最爱</title>
+    <link rel="stylesheet" href="css/icon/demo.css">
+    <link rel="stylesheet" href="css/icon/iconfont.css">
+    <link rel="stylesheet" href="css/head.css">
+
+
 </head>
 <body>
-    
+<header id="header">
+    <div class="he-bg">
+        <div class="head-radio">
+
+            <div>
+                <div>
+                    <a href="#">好的生活，没有那么贵</a>
+                </div>
+                <ul :style="myTop">
+                    <li><a href="#">【淘购x中行联名卡】达标领80元礼品卡&gt;</a></li>
+                    <li ><a href="#">【福利】下载淘购APP，抢1元包邮团，领...</a></li>
+                    <li><a href="#">【淘购x中行联名卡】达标领80元礼品卡&gt;</a></li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li><a href="#">登录</a></li>
+                    <li><a href="#">注册</a></li>
+                    <li><a href="#">我的订单</a></li>
+                    <li><a href="#">会员</a></li>
+                    <li><a href="#">甄选家</a></li>
+                    <li><a href="#">企业采购</a></li>
+                    <li @mouseenter="show()" @mouseleave="hide()"><a href="#">客户服务<span><i class="icon iconfont icon-jiantou_liebiaozhankai icon-color-c"></i></span></a>
+                        <ul :class="kh_hide" >
+                            <li><div></div><a href="#">在线客服</a></li>
+                            <li><a href="#">帮助中心</a></li>
+                            <li><a href="#">商务合作</a></li>
+                            <li><a href="#">开放平台</a></li>
+                        </ul>
+                    </li>
+                    <li id="b-code"  @mouseenter="showE()" @mouseleave="hideE()"><i class="icon iconfont icon-shouji_o icon-color-w" ></i><a href="#">APP</a>
+                    <div :class="ew_hide">
+                        <div></div>
+                        <img src="img/index/erweima.png" width="115px">
+                        <span>扫码有惊喜</span>
+                    </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="nav">
+        <div class="logo">
+            <a href="#" title="网易严选"><img src="img/index/wangyiyanxuan.png" alt=""></a>
+            <div class="search">
+                <input type="text" placeholder="冬夏两用床垫直降240"><span><i class="icon iconfont icon-sousuo"></i></span><span><i class="icon iconfont icon-gouwuche_o"></i></span>
+                <div class="count">
+                    20
+                </div>
+            </div>
+        </div>
+        <div class="details">
+            <ul>
+                <li><a href="#">首页</a></li>
+                <li><a href="#">居家</a>
+                    <div class="furnishing drop-down hide">
+                        <div></div>
+                        <ul>
+                            <li><a href="#">床品</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/furnishing01.png">床品件套</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/furnishing02.png">被枕</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">家居家装</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/furnishing03.png">家居</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/furnishing04.png">灯具</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/furnishing05.png">布艺软装</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/furnishing06.png">家饰</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">收纳</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/furnishing07.png">收纳</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/furnishing08.png">旅行用品</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/furnishing09.png">晾晒除味</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">医疗宠物</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/furnishing10.png">家庭医疗</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/furnishing11.png">宠物</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a href="#">鞋包配饰</a>
+                    <div class="shoes drop-down hide">
+                        <div></div>
+                        <ul>
+                            <li><a href="#">箱包</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/shoes1.png">行李箱</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/shoes2.png">女包</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/shoes3.png">男包</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/shoes4.png">钱包</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">鞋袜</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/shoes5.png">女鞋</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/shoes6.png">男鞋</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/shoes7.png">拖鞋</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/shoes8.png">鞋配</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">配饰配件</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/shoes9.png">袜子</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/shoes10.png">丝袜</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/shoes11.png">围巾套件</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/shoes12.png">首饰</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/shoes13.png">配件</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/shoes14.png">眼镜</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a href="#">服装</a>
+                    <div class="clothes drop-down hide">
+                        <div></div>
+                        <ul>
+                            <li><a href="#">男装</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/clothes1.png">男士外套</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/clothes2.png">男针织/卫衣</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/clothes3.png">男士裤装</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/clothes4.png">男士牛仔</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/clothes5.png">男士衬衫</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/clothes6.png">T恤/POLO</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">女装</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/clothes7.png">女士外套</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/clothes8.png">女针织/卫衣</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/clothes9.png">女士裤装</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/clothes10.png">女士牛仔</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/clothes11.png">女士裙装</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/clothes12.png">T恤/POLO</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">运动</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/clothes13.png">男运动上装</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/clothes14.png">女运动上装</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/clothes15.png">男运动下装</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/clothes16.png">女运动下装</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/clothes17.png">男士户外</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/clothes18.png">女士户外</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">内衣家居服</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/clothes19.png">男士家居</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/clothes20.png">女士家居</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/clothes21.png">男士内裤</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/clothes22.png">女士内裤</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/clothes23.png">女士内衣</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/clothes24.png">男士内衣</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">Yessing轻运动</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/clothes25.png">Yessing上装</a></li>
+                            <li><a href="#"><img src="img/index/furnishing/clothes26.png">Yessing下装</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a href="#">电器</a></li>
+                <li><a href="#">洗护</a></li>
+                <li><a href="#">饮食</a></li>
+                <li><a href="#">餐厨</a></li>
+                <li><a href="#">婴童</a></li>
+                <li><a href="#">文体</a></li>
+                <li><a href="#">特色区</a></li>
+            </ul>
+            <ul>
+                <li><a href="#">为你严选</a></li>
+                <li><a href="#">众筹</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+</header>
+<script src="js/vue.js"></script>
+<script src="js/head.js"></script>
 </body>
 </html>
