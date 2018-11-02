@@ -166,7 +166,11 @@
 .nav .details>ul>li{
     float: left;
     padding:0 24px;
+    height:60px;
     margin:6px 0;
+}
+.nav .details>ul>li:hover>.drop-down{
+    display: block;
 }
 .nav .details ul li a{
     font-family: "Microsoft Yahei","微软雅黑",verdana;
@@ -175,17 +179,18 @@
     color:#000;
     padding-bottom:6px;
 }
+
+/*家居*/
+.nav .details .drop-down{
+    position:absolute;
+    display: none;
+    box-shadow: 0 0 1px 1px rgba(0,0,0,.1);
+    padding:15px;
+}
 .nav .details>ul>li>a:hover{
     color:#b4a078;
     border-bottom: 3px solid #b4a078;
     text-decoration: none;
-}
-/*家居*/
-.nav .details .drop-down{
-    position:absolute;
-    /*display: flex;*/
-    box-shadow: 0 0 1px 1px rgba(0,0,0,.1);
-    padding:15px;
 }
 /*单独设置下拉菜单的位置*/
 .nav .details .furnishing{
@@ -256,4 +261,44 @@
 /*单独设置三角形的位置*/
 .nav .details .clothes>div{
     left:283px;top:-10px;}
+
+/*单独设置电器*/
+/*单独设置下拉菜单的位置*/
+.nav .details .electrical{
+    left:200px;top:55px;}
+/*单独设置三角形的位置*/
+.nav .details .electrical>div{
+    left:158px;top:-10px;}
+
+/*单独设置洗护*/
+/*单独设置下拉菜单的位置*/
+.nav .details .wash{
+    left:200px;top:55px;}
+/*单独设置三角形的位置*/
+.nav .details .wash>div{
+    left:235px;top:-10px;}
+/*单独设置食品*/
+/*单独设置下拉菜单的位置*/
+.nav .details .food{
+    left:-80px;top:55px;}
+/*单独设置三角形的位置*/
+.nav .details .food>div{
+    left:235px;top:-10px;}
+
+/*单独设置餐厨*/
+/*单独设置下拉菜单的位置*/
+.nav .details .kitchen{
+    left:400px;top:55px;}
+/*单独设置三角形的位置*/
+.nav .details .kitchen>div{
+    left:190px;top:-10px;}
+
+/*单独设置婴童*/
+/*单独设置下拉菜单的位置*/
+.nav .details .baby{
+    left:350px;top:55px;}
+/*单独设置三角形的位置*/
+.nav .details .baby>div{
+    left:315px;top:-10px;}
+
 
