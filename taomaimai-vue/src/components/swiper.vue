@@ -68,6 +68,7 @@ export default {
     }
     .slider{
         position:relative;
+        width:100%;height:500px;
     }
     .window{
         width:1900px;
@@ -75,7 +76,7 @@ export default {
         /*margin-top:-80px;*/
         overflow: hidden;
         position:absolute;
-        top:55px;
+        top:75px;
         /*margin-left: -100%;*/
     }
     ul.container{

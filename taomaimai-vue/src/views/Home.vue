@@ -3,6 +3,7 @@
     <Header>
     </Header>
     <swiper></swiper>
+    <firstBrand></firstBrand>
   </div>
 </template>
 
@@ -10,10 +11,11 @@
 // @ is an alias to /src
 import Header from '@/components/header.vue'
 import swiper from '@/components/swiper.vue'
+import firstBrand from '@/components/firstBrand.vue'
 
 export default {
   components: {
-    Header,swiper
+    Header,swiper,firstBrand
   }
 }
 </script>

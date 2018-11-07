@@ -56,8 +56,8 @@
 
           </div>
         </div>
-        <div class="details">
-          <ul>
+        <div class="details" :class="scroll>=160?'sFixed':''">
+          <ul :class="scroll>=160?'sFixed':''">
 
             <li v-show="searchF"><img src="img/index/wangyiyanxuan.png" width="100px" alt=""></li>
             <li :style="liPadding"><a href="#">首页</a></li>
@@ -360,7 +360,7 @@
             <li :style="liPadding"><a href="#">众筹</a></li>
           </ul>
 
-          <div class="searchFloat" v-show="searchF"> <!--下滑时搜索栏要放的位置-->
+          <div class="searchFloat " :class="scroll>=160?'sFixed':''" v-show="searchF"> <!--下滑时搜索栏要放的位置-->
             <input type="text" placeholder="冬夏两用床垫直降240">
             <span><i class="icon iconfont icon-sousuo" @click="scrollShow()"></i></span>
             <a href="#"><i class="icon iconfont icon-gerentouxiang_o"></i></a>
@@ -628,15 +628,35 @@ export default {
   }
   /*页头导航栏*/
 
+  /*.hello.sFixed{ !*设置下滑时的绝对定位*!*/
+      /*position:fixed;*/
+    /*top:0px;*/
+  /*}*/
+  .nav .details.sFixed{
+    width:1920px;height:60px;
+    background: white;
+    position:fixed;
+    left:0;top:0;
+    z-index:2
+  }
+  .nav .details ul:first-child.sFixed{  /*添加sFixed*/
+    margin-left: 400px;
+  }
+
   .nav .details ul{
     position: relative;
   }
   .nav .details>ul>li{
     position:relative;
+    top:20px;
     float: left;
     /*padding:0 19px;  !*这是一会要改回去的*!*/
     height:60px;
     margin:6px 0;
+    z-index:4;
+  }
+  .nav .details>ul:first-child>li:nth-child(11), .nav .details>ul:first-child>li:nth-child(12){
+    z-index:2;
   }
   .nav .details>ul>li:hover>.drop-down{
     display: block;
@@ -649,9 +669,14 @@ export default {
     padding-bottom:6px;
   }
   /*下滑时搜索等信息部分*/
+  .nav .details .searchFloat.sFixed{
+    position:relative;
+    right:150px;
+    z-index:3;
+  }
   .nav .details .searchFloat{
     position:absolute;
-    right:0px;top:-10px;
+    right:0px;top:10px;
   }
 
   /*下拉菜单*/
