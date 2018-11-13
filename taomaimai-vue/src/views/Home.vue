@@ -1,21 +1,20 @@
 <template>
   <div class="home">
-    <Header>
-    </Header>
-    <swiper></swiper>
-    <firstBrand></firstBrand>
+    <Header></Header>
+    <router-view></router-view>
+
+    <!--<swiper></swiper>-->
+    <!--<firstBrand></firstBrand>-->
+    <!--<smallSwiper></smallSwiper>-->
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import Header from '@/components/header.vue'
-import swiper from '@/components/swiper.vue'
-import firstBrand from '@/components/firstBrand.vue'
-
 export default {
   components: {
-    Header,swiper,firstBrand
+    Header
   }
 }
 </script>
