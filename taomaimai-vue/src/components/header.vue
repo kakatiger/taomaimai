@@ -414,7 +414,6 @@ export default {
         },
         scrollShow(){
             this.scroll=document.documentElement.scrollTop;
-            console.log(this.scroll)
             if(this.scroll>=160){
                 this.searchF=true;
                 this.liPadding.padding='0 20px'

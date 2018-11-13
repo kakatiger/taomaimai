@@ -2,9 +2,7 @@
     <div class="slider">
         <div class="window" @mouseenter="slideEnd()" @mouseleave="slideStart()">
             <ul class="container" :style="mySlide">
-                <li><img :src="imgs[4].src" alt="" ></li>
                 <li v-for="(item,i) in imgs" ><img :src="item.src" alt=""></li>
-                <li><img :src="imgs[0].src" alt=""></li>
             </ul>
             <ul class="dir">
                 <li><div class="dir-left" @click="slide(1)"><i class="icon iconfont icon-jiantou_liebiaoxiangzuo"></i></div></li>
@@ -22,19 +20,12 @@
 export default {
     data:function () {
         return{
-            imgs:[
-                {id:1,src:'img/banner/banner1.jpg'},
-                {id:2,src:'img/banner/banner2.jpg'},
-                {id:3,src:'img/banner/banner3.jpg'},
-                {id:4,src:'img/banner/banner4.jpg'},
-                {id:5,src:'img/banner/banner5.jpg'}
-            ],
             mySlide:{left:'-1900px'},
             index:1,
             timer:setInterval(this.autoSlide,3500)
 
         }
-    },
+    },props:['imgs'],
     methods:{
         slide(val){
             this.mySlide.left = parseInt(this.mySlide.left)+val*1900+'px'
@@ -54,13 +45,10 @@ export default {
         slideStart(){
             this.timer=setInterval(this.autoSlide,3500)
         }
-    },
-//    mounted(){
-//        var timer=setInterval(this.autoSlide,2000)
-//    }
+    }
 }
 </script>
-<style>
+<style scoped>
     *{
         margin:0;
         padding:0;
