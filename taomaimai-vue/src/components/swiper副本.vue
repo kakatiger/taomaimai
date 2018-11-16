@@ -1,13 +1,18 @@
 <template>
     <div class="slider">
-        <div class="window" :style="Wwidth" @mouseenter="slideEnd()" @mouseleave="slideStart()">
+        <div class="window" @mouseenter="slideEnd()" @mouseleave="slideStart()">
+            <ul class="container" :style="mySlide">
+                <li v-for="(item,i) in imgs" ><img :src="item.src" alt=""></li>
+            </ul>
             <ul class="dir">
-                <li><div class="dir-left" @click="slide(-1)"><i class="icon iconfont icon-jiantou_liebiaoxiangzuo"></i></div></li>
-                <li><div class="dir-right" @click="slide(1)"><i class="icon iconfont icon-jiantou_liebiaoxiangyou"></i></div></li>
+                <li><div class="dir-left" @click="slide(1)"><i class="icon iconfont icon-jiantou_liebiaoxiangzuo"></i></div></li>
+                <li><div class="dir-right" @click="slide(-1)"><i class="icon iconfont icon-jiantou_liebiaoxiangyou"></i></div></li>
             </ul>
             <ul class="dot">
-                <li v-for="i in imgs.length"><div :class="{active: i==index+1}"></div></li>
+                <li v-for="i in imgs.length"><div :class="{active: i==(parseInt(mySlide.left))/(-1900)}"></div></li>
             </ul>
+
+
         </div>
     </div>
 </template>
@@ -15,9 +20,8 @@
 export default {
     data:function () {
         return{
-            mySlide:{left:'100%'},
-            index:0,
-            screenWidth:document.body.clientWidth,/*Wwidth:{width:'1900px'},*/
+            mySlide:{left:'-1900px'},
+            index:1,
             timer:setInterval(this.autoSlide,3500)
 
         }
@@ -28,16 +32,12 @@ export default {
 //            console.log(this.mySlide.left)
             if(parseInt(this.mySlide.left) < -9500) this.mySlide.left=-1900+'px'
             if(parseInt(this.mySlide.left) > -1900) this.mySlide.left=-9500+'px'
-            console.log(this.screenWidth)
-            console.log(this.Wwidth)
-            console.log(this.imgs)
-            this.index+=val
-            if(this.index>4) this.index=0;
-            if(this.index<0) this.index=4;
+//            clearInterval(this.timer)
         },
         autoSlide(){
-            this.index+=1
-            if(this.index>4) this.index=0;
+            this.mySlide.left = parseInt(this.mySlide.left)-1900+'px';
+            if(parseInt(this.mySlide.left) < -9500) this.mySlide.left=-1900+'px'
+            if(parseInt(this.mySlide.left) > -1900) this.mySlide.left=-9500+'px'
         },
         slideEnd(){
             clearInterval(this.timer)
@@ -45,25 +45,6 @@ export default {
         slideStart(){
             this.timer=setInterval(this.autoSlide,3500)
         }
-//
-    },
-
-    computed:{
-        Wwidth(){
-            if(this.screenWidth<1400) this.screenWidth=1400;
-            return {width:this.screenWidth+'px',backgroundImage:`url(${this.imgs[this.index].src})`}
-        },
-
-    },
-    mounted(){
-        var that=this
-        window.onresize = () => {
-            return (() => {
-                window.screenWidth = document.body.clientWidth
-                that.screenWidth = window.screenWidth
-            })()
-        }
-
     }
 }
 </script>
@@ -78,16 +59,24 @@ export default {
         width:100%;height:500px;
     }
     .window{
+        min-width:1900px;
         height:430px;
+        /*margin-top:-80px;*/
+        overflow: hidden;
         position:absolute;
         top:75px;
-        border:1px solid red;
-        background-position:center;
-        background-repeat: no-repeat;
+        /*margin-left: -100%;*/
     }
-    ul.container>li img{
-        height:430px;
+    ul.container{
+        width:13300px;
+        position:absolute;
+    }
+    ul.container>li{
+        float:left;
+    }
 
+    ul.container>li img{
+        width:1900px;
     }
     ul.dir{
 
@@ -112,7 +101,7 @@ export default {
     }
     ul.dot{
         position:absolute;
-        bottom:50px;left:50%;
+        bottom:50px;left:900px;
         z-index: 99;
     }
     ul.dot>li{
@@ -129,9 +118,6 @@ export default {
         box-shadow:0 0 5px 5px  #D0C4AF;
         background: #a7936e;
     }
-
-
-
 
 
 </style>

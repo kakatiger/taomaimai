@@ -1,6 +1,6 @@
 <template>
     <div class="furnishing">
-        <swiper :imgs="imgs"></swiper>
+        <!--<swiper :imgs="imgs"></swiper>-->
         <classify :famliy="famliy"></classify>
         <goodsShow :showList="bedshowList" :title="bedtitle" :sub="bedsub"></goodsShow>
         <goodsShow :showList="pillowshowList" :title="pillowtitle" :sub="pillowsub"></goodsShow>
@@ -46,3 +46,9 @@
         }
     }
 </script>
+<style scoped>
+    .furnishing{
+        margin-top: 300px;
+    }
+
+</style>

@@ -363,7 +363,7 @@
           <div class="searchFloat " :class="scroll>=160?'sFixed':''" v-show="searchF"> <!--下滑时搜索栏要放的位置-->
             <input type="text" placeholder="冬夏两用床垫直降240">
             <span><i class="icon iconfont icon-sousuo" @click="scrollShow()"></i></span>
-            <a href="#"><i class="icon iconfont icon-gerentouxiang_o"></i></a>
+            <a href="#"><i class="icon iconfont icon-gereintouxiang_o"></i></a>
             <a href="#"><i class="icon iconfont icon-gouwuche_o"><div class="count">
               20
             </div></i></a>
