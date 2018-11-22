@@ -18,7 +18,11 @@ export default new Router({
         { path:"furnishing", component: furnishing },
         { path:"details", component: details },
         { path:"products", name:'products',component: products,props:true},
-    ]},
+    ]
+    },
+      {
+          path:'/register',component:()=> import('./views/register.vue')
+      },
     {
       path: '/about',
       name: 'about',

@@ -6,14 +6,21 @@ import storex from './store'
 import Vuex from 'vuex'
 Vue.use(Vuex)
 var store = new Vuex.Store({
-    state:{allshow:false},//配送地址的显示与隐藏
+    state:{allshow:false,//配送地址的显示与隐藏
+        closeLoginState:false,
+    },
     mutations:{
       showArea(state){state.allshow=true},
-      hiddenArea(state){state.allshow=false}
+      hiddenArea(state){state.allshow=false},
+      openLogin(state){state.closeLoginState=true},
+      closeLogin(state){state.closeLoginState=false}
     },
     getters:{
       isAllshow:function(state){
         return state.allshow
+      },
+      isCloseLogin:function (state) {
+          return state.closeLoginState
       }
     }
 })

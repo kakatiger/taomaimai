@@ -18,7 +18,7 @@
           </div>
           <div>
             <ul>
-              <li><a href="#">登录</a></li>
+              <li><a href="#" @click="loginTo($event)">登录</a></li>
               <li><a href="#">注册</a></li>
               <li><a href="#">我的订单</a></li>
               <li><a href="#">会员</a></li>
@@ -422,6 +422,10 @@ export default {
                 this.liPadding.padding='0 24px'
             }
 
+        },
+        loginTo(e){
+            e.preventDefault()
+          this.$store.commit('openLogin')
         },
         select(){
             this.$router.push('products?kw='+this.kw)
