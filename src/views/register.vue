@@ -7,19 +7,28 @@
             <div class="register">
                 <div class="main">
                     <div class="account">
-                        <span>账号：</span><input type="text"><span class="warning">12</span>
+                        <span>账号：</span><input type="text" name="uname"  v-model="uname" @blur=" notice($event)"><span v-show="unameShow" class="warning">
+                        <div class="success" v-show="unameS">√</div>
+                        <span class="fail" v-show="!unameS"><span class="ff">×</span>{{unameNotice}}</span><!--提示信息-->
+                    </span>
                     </div>
                     <div class="upwd">
-                       <span>密码：</span> <input type="password"><span class="warning">12</span>
+                       <span>密码：</span> <input type="password" name="upwd" v-model="upwd" @blur=" notice($event)"><span v-show="upwdShow" class="warning">
+                        <div class="success">√</div><span class="fail"><span class="ff">×</span>密码须由6-16个字符组成，区分大小写</span> <!--提示信息-->
+                    </span>
                     </div>
                     <div class="upwd2">
-                        <span>确认密码：</span><input type="password"><span class="warning">12</span>
+                        <span>确认密码：</span><input type="password" v-model="upwd1" @blur=" notice($event)"><span v-show="upwd1Show" class="warning">
+                        <div class="success">√</div><span class="fail"><span class="ff">×</span>两次密码输入不一致</span> <!--提示信息-->
+                    </span>
                     </div>
                     <div class="ident">
                         <span>验证码：</span><div>滑动验证</div>
                     </div>
                     <div class="tel">
-                        <span>手机号：</span><input type="tel"><span class="warning">12</span>
+                        <span>手机号：</span><input type="tel" name="tel" v-model="tel" @blur=" notice($event)"><span v-show="telShow" class="warning">
+                        <div class="success">√</div><span class="fail"><span class="ff">×</span>手机号输入有误，请重新输入</span> <!--提示信息-->
+                    </span>
                     </div>
                     <div class="message">
                         <span>短信验证码：</span><div><input type="text"><button>获取验证码</button></div>
@@ -44,7 +53,27 @@
 </template>
 <script>
     export default {
+        data:function () {
+            return{
+                uname:'liuyang@13.com',unameShow:false,unameS:false,
+                upwd:'',upwdShow:false,
+                upwd1:'', upwd1Show:false,
+                tel:'',telShow:false,
 
+                unameNotice:'帐号须由6-18个字符组成'
+            }
+        },
+        methods:{
+            notice(e){
+                var a=e.target.name
+                if(a == 'tel'){
+                    var reg=/^[0-9]{11}$/
+                    console.log(reg.test(this.tel))
+                }
+
+//              this[a+'Show']=true;
+            }
+        }
     }
 </script>
 <style scoped>
@@ -80,14 +109,18 @@
   .main{
       display: flex;
       flex-direction: column;
+      width:100%;
+      margin:0;padding:60px 0 0 0;
+
 
   }
     .main>div{
         display: flex;
+        justify-content: flex-start;
         width:100%;height: 72px;
     }
     .main>div>span{
-        width: 260px;
+        width: 320px;
         height:44px;
         text-align:right;
         font-size: 16px;
@@ -126,6 +159,29 @@
     .main .warning{
         text-align: left;
         width:200px;
+        margin-left:5px;
+    }
+    .main .warning .success{
+        background: #71c86f;
+        width:14px;height:14px;
+        line-height: 12px;
+        text-align: center;
+        border-radius: 50%;
+        color:white;
+    }
+    .main .warning .fail{
+        color:#fa5b5b;
+        font-size: 12px;
+    }
+    .main .warning .fail .ff{
+        display: inline-block;
+        background: #fa5b5b;
+        width:14px;height:14px;
+        line-height: 12px;
+        text-align: center;
+        border-radius: 50%;
+        color:white;
+        margin-right: 3px;
     }
 
 </style>

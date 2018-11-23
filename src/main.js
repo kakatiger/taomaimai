@@ -4,7 +4,9 @@ import router from './router'
 import axios from 'axios'
 import storex from './store'
 import Vuex from 'vuex'
+// import  Validator from 'vue-validator'
 Vue.use(Vuex)
+// Vue.use(Validator)
 var store = new Vuex.Store({
     state:{allshow:false,//配送地址的显示与隐藏
         closeLoginState:false,
