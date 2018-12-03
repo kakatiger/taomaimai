@@ -1,6 +1,6 @@
 <template>
     <div class="furnishing">
-        <!--<swiper :imgs="imgs"></swiper>-->
+        <small-swiper :list="imgs"></small-swiper>
         <classify :famliy="famliy"></classify>
         <goodsShow :showList="bedshowList" :title="bedtitle" :sub="bedsub"></goodsShow>
         <goodsShow :showList="pillowshowList" :title="pillowtitle" :sub="pillowsub"></goodsShow>
@@ -9,13 +9,13 @@
 </template>
 <script>
     import Vue from 'vue'
-    import swiper from '@/components/swiper.vue'
     import classify from '@/components/classifySort.vue'
     import goodsShow from '@/components/goodsShow.vue'
     import Footer from '@/components/footer.vue'
+    import smallSwiper from '@/components/smallSwiper.vue'
     export default {
         components: {
-           swiper,classify,goodsShow,Footer
+           classify,goodsShow,Footer,smallSwiper
         },
         data:function () {
             return{   imgs:[],famliy:[],
@@ -25,19 +25,22 @@
             }
         },
         mounted(){
-            this.axios.get('http://localhost:4000/furnishing/banner').then(res=>{
+            this.axios.get('furnishing/banner').then(res=>{
                this.imgs=res.data
             });
-            this.axios.get('http://localhost:4000/furnishing/class').then(res=>{
+            this.axios.get('furnishing/class',{params:{
+                bigId:1
+            }
+            }).then(res=>{
                 this.famliy=res.data
             });
-             this.axios.get('http://localhost:4000/furnishing/furnishing',{params:{
+             this.axios.get('furnishing/furnishing',{params:{
                  fid:101
              }
              }).then(res=>{
                 this.bedshowList = res.data
              })
-            this.axios.get('http://localhost:4000/furnishing/furnishing',{params:{
+            this.axios.get('furnishing/furnishing',{params:{
                 fid:102
             }
             }).then(res=>{
@@ -48,7 +51,7 @@
 </script>
 <style scoped>
     .furnishing{
-        margin:300px auto;
+        margin:100px auto;
         /*margin-top: 300px;*/
         width:1090px;
 

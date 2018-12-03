@@ -7,16 +7,10 @@
                 <p class="mail">邮箱登录</p>
             </div>
             <div class="center-email">
-                <div class="uname"><span><i class="icon iconfont icon-people_fill"></i></span><input type="text" placeholder="邮箱账号"></div>
-                <div class="upwd"><span><i class="icon iconfont icon-unlock_fill"></i></span><input type="text" placeholder="请输入密码"></div>
-                <button>登&nbsp;录</button>
-            </div>
-            <div class="center-phone">
-                <div class="uname"><span><i class="icon iconfont icon-shouji"></i></span><input type="text" placeholder="请输入手机号码"></div>
-                <div class="slider"><div class="block"></div></div>
-                <div class="ident"><input type="text" placeholder="请输入验证码"><div>获取验证码</div></div>
-
-                <button>登&nbsp;录</button>
+                <div class="uname"><span><i class="icon iconfont icon-people_fill"></i></span><input type="text" placeholder="邮箱账号/手机号" v-model="uname"></div>
+                <div class="upwd"><span><i class="icon iconfont icon-unlock_fill"></i></span><input type="text" placeholder="请输入密码" v-model="upwd" @keyup.13=" login()"></div>
+                <p class="err">{{notice}}</p>
+                <button @click="login()">登&nbsp;录</button>
             </div>
             <div class="forget">忘记密码?</div>
         </div>
@@ -25,13 +19,28 @@
 <script>
     export default {
         data:function () {
-            return{
+            return{uname:'18230107050',upwd:'123456a',
+                notice:''
             }
         },
         methods:{
             closelogin(){
                 this.$store.commit('closeLogin')
             },
+            login(){
+                this.axios.post('user/login',Qs.stringify({
+                    uname:this.uname,tel:this.uname,upwd:this.upwd
+                })).then(res=>{
+                    console.log(res)
+                    if(res.data.ok==0){
+                        this.notice='账号或密码错误'
+                    }else{
+                        this.notice=''
+                        this.$store.commit('closeLogin')
+                        location.reload();
+                    }
+                })
+            }
         }
     }
 </script>
@@ -47,15 +56,14 @@
         z-index: 101;
         top:0px;
         left:0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .loginTo{
         width:384px;
         /*height: 400px;*/
         background-color:#fff ;
-        position: absolute;
-        left: 50%;top: 40%;
-        margin-top: -200px;
-        margin-left: -192px;
     }
     .close{
         position: absolute;
@@ -99,7 +107,11 @@
     }
     .center-email .upwd{
         margin-top: 16px;
-        margin-bottom:55px;
+        margin-bottom:10px;
+    }
+    .center-email .err{
+        text-align: left;
+        color:red;
     }
     .center-email>div i{
         font-size:24px;
@@ -119,6 +131,7 @@
         color: #ccc;
     }
     .center-email button{
+        margin-top: 30px;
         width:98%;
         height: 48px;
         color:white;

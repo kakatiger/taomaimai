@@ -16,7 +16,8 @@
     //需用到子向父传递参数
     export default {
         data:function(){
-            return{sprovice:provice,pro:'城市',city:'城市',county:'县/区',
+            return{
+                sprovice:provice,pro:'省份',city:'城市',county:'县/区',
                 proviceShow:true,cityShow:false,countyShow:false,
                 scity:[],scounty:[],address:'',allshow:true,
             }

@@ -52,7 +52,7 @@
                 </div>
             </div>
             <div class="buyOrCart">
-                <a href="#" class="buy"><span>立即购买</span></a><a href="#" class="cart"><div><i class="icon iconfont icon-gouwuche"></i><span>加入购物车</span></div></a>
+                <a href="#" class="buy"><span>立即购买</span></a><a href="#" class="cart" @click="addToCart($event)"><div><i class="icon iconfont icon-gouwuche"></i><span >加入购物车</span></div></a>
                 <div class="store" title="点击收藏" @click="favorite()"><div><i class="icon iconfont" :class="myClass"></i></div><p>{{store}}</p></div>
             </div>
         </div>
@@ -104,6 +104,10 @@
                     this.myClass['active']=0;
                     this.myClass['icon-xingxing']=0;
                 }
+            },
+            addToCart(e){
+                e.preventDefault()
+                this.$store.commit('addCartCount',this.count)
             }
         },
         mounted(){
@@ -204,6 +208,7 @@
     .detailsMain .right .count .spec span.active{
         border:2px solid #D0C4AF;
         position: relative;
+        z-index: -1;
     }
     .detailsMain .right .count .spec span.active div{
         display:block;

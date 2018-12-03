@@ -28,9 +28,6 @@ export default {
 //            console.log(this.mySlide.left)
             if(parseInt(this.mySlide.left) < -9500) this.mySlide.left=-1900+'px'
             if(parseInt(this.mySlide.left) > -1900) this.mySlide.left=-9500+'px'
-            console.log(this.screenWidth)
-            console.log(this.Wwidth)
-            console.log(this.imgs)
             this.index+=val
             if(this.index>4) this.index=0;
             if(this.index<0) this.index=4;
@@ -81,7 +78,6 @@ export default {
         height:430px;
         position:absolute;
         top:75px;
-        border:1px solid red;
         background-position:center;
         background-repeat: no-repeat;
     }

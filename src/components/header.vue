@@ -18,12 +18,22 @@
           </div>
           <div>
             <ul>
-              <li><a href="#" @click="loginTo($event)">登录</a></li>
-              <li><a href="#">注册</a></li>
-              <li><a href="#">我的订单</a></li>
+              <li v-show="!hasLogin"><a href="#" @click="loginTo($event)">登录</a></li>
+              <li v-show="hasLogin" class="isLogin">  <!--登录后的状态-->
+                <a href="#">{{uname}}</a><span><i class="icon iconfont icon-jiantou_liebiaozhankai icon-color-c"></i></span>
+                <ul class="pull-down">
+                  <li><div></div><a href="#">甄优惠券</a></li>
+                  <li><a href="#">优选礼卡</a></li>
+                  <li><a href="#">我的积分</a></li>
+                  <li><a href="#" @click="loginOut">退出登录</a></li>
+                </ul>
+              </li>
+              <li v-show="!hasLogin"><router-link to="/register">注册</router-link></li>
+              <li v-show="hasLogin"><a href="#">消息</a></li>
+              <li><router-link to="/address">我的地址</router-link></li>
               <li><a href="#">会员</a></li>
               <li><a href="#">甄选家</a></li>
-              <li><a href="#">企业采购</a></li>
+              <li><a href="#">我的收藏</a></li>
               <li ><a href="#">客户服务<span><i class="icon iconfont icon-jiantou_liebiaozhankai icon-color-c"></i></span></a>
                 <ul>
                   <li><div></div><a href="#">在线客服</a></li>
@@ -50,8 +60,8 @@
             <input type="text" placeholder="冬夏两用床垫直降240" v-model="kw" @keyup.13="select()" >
             <span @click="select()"><i class="icon iconfont icon-sousuo"></i></span>
             <a href="#" v-show="searchF"><i class="icon iconfont icon-gerentouxiang_o"></i></a>
-            <a href="#"><i class="icon iconfont icon-gouwuche_o"><div class="count">
-              20
+            <a href="#" @click="goCart($event)"><i class="icon iconfont icon-gouwuche_o"><div class="count">
+              {{$store.getters.getCartCount}}
             </div></i></a>
 
           </div>
@@ -90,7 +100,7 @@
                   </ul>
                 </div>
               </li>
-              <li :style="liPadding"><a href="#">鞋包配饰</a>
+              <li :style="liPadding"><router-link to="/shoes">鞋包配饰</router-link>
                 <div class="shoes drop-down">
                   <div></div>
                   <ul>
@@ -365,8 +375,8 @@
               <input type="text" placeholder="冬夏两用床垫直降240" v-model="kw" @keyup.13="select()">
               <span @click="select()"><i class="icon iconfont icon-sousuo" @click="scrollShow()"></i></span>
               <a href="#"><i class="icon iconfont icon-gereintouxiang_o"></i></a>
-              <a href="#"><i class="icon iconfont icon-gouwuche_o"><div class="count">
-                20
+              <a href="#" @click="goCart($event)"><i class="icon iconfont icon-gouwuche_o"><div class="count">
+                {{$store.getters.getCartCount}}
               </div></i></a>
             </div>
           </div>
@@ -387,6 +397,8 @@ export default {
           searchF:false,
           liPadding:{padding:'0 24px'},
           kw:'',
+          hasLogin:false,
+          uname:''
       }
   },
     methods:{
@@ -431,19 +443,31 @@ export default {
             this.$router.push('products?kw='+this.kw)
             location.reload();
 //            console.log(this.kw)
+        },
+        goCart(e){
+          e.preventDefault()
+          if(this.hasLogin)
+          this.$router.push('shopcart')
+        },
+        loginOut(){
+            this.axios.get('user/signout').then(res=>{
+                location.reload()
+            })
         }
-//        select(){
-//            this.$router.push('products/'+this.kw)
-//            location.reload();
-//
-////            console.log(this.kw)
-//        }
     },
     created(){
     this.guangBo()
     },
     mounted(){
-        window.addEventListener('scroll', this.scrollShow)
+        window.addEventListener('scroll', this.scrollShow);
+        this.axios.get('user/isLogin').then(res=>{
+            console.log(res)
+            if(res.data.ok===1){
+                this.hasLogin=true;
+                this.uname=res.data.uname;
+            }else{this.hasLogin=false}
+
+        })
     }
 }
 </script>
@@ -525,6 +549,24 @@ export default {
   .head-radio>div:last-child>ul>li{
     float:left;
     margin-left:16px;
+  }
+  .head-radio>div:last-child>ul>li.isLogin{
+    position: relative;
+  }
+  .head-radio>div:last-child>ul>li.isLogin .pull-down{
+    top:-12px;
+  }
+  #header .head-radio>div:last-child>ul>li.isLogin span{
+    position: absolute;
+    top:0px;left:50px;
+  }
+  #header .head-radio>div:last-child>ul>li.isLogin>a{
+    display: inline-block;
+    white-space: nowrap;
+    border:none;
+    width:60px;
+    text-overflow:ellipsis;
+    overflow: hidden;
   }
   .head-radio>div:last-child>ul>li+li:not(:last-child)>a{/*边框*/
     border-right:1px solid #ccc;

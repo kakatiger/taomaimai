@@ -15,7 +15,7 @@
             return{obj:{},arr:[],spec:[]}
         },
         mounted(){
-            this.axios.get('http://localhost:4000/furnishing/details',{params:{
+            this.axios.get('furnishing/details',{params:{
                 nid:this.$route.query.nid
             }
             }).then(res=>{
@@ -30,5 +30,6 @@
     .details{
         width:1090px;
         margin:220px auto 0;
+        position: relative;
     }
 </style>

@@ -2,38 +2,25 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import axios from 'axios'
-import storex from './store'
-import Vuex from 'vuex'
-// import  Validator from 'vue-validator'
-Vue.use(Vuex)
-// Vue.use(Validator)
-var store = new Vuex.Store({
-    state:{allshow:false,//配送地址的显示与隐藏
-        closeLoginState:false,
-    },
-    mutations:{
-      showArea(state){state.allshow=true},
-      hiddenArea(state){state.allshow=false},
-      openLogin(state){state.closeLoginState=true},
-      closeLogin(state){state.closeLoginState=false}
-    },
-    getters:{
-      isAllshow:function(state){
-        return state.allshow
-      },
-      isCloseLogin:function (state) {
-          return state.closeLoginState
-      }
+import store from './store'
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+import { Button, Select } from 'element-ui';
+Vue.use(Button)
+ Vue.use(Select)
+Vue.use(ElementUI);
+Vue.directive('focus',{
+    inserted:function(el){
+        el.focus()
+        console.log(el)
     }
 })
-
 Vue.config.productionTip = false
 axios.defaults.withCredentials=true//让axios可以携带cookie
+axios.defaults.baseURL='http://127.0.0.1:4000/'
 Vue.prototype.axios=axios;
-
 new Vue({
   router,
     store,
-    storex,
   render: h => h(App)
 }).$mount('#app')

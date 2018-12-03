@@ -3,7 +3,19 @@
     <router-view/>
   </div>
 </template>
+<script>
+  export default {
+      el:"#app",
+      mounted(){
+          window.addEventListener()
+      },
+      methods:{
 
+      }
+
+
+  }
+</script>
 <style>
 
 *{

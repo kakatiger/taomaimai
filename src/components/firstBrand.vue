@@ -14,27 +14,33 @@
             <div>
                 <div class="subtitle">海外制造商</div>
                 <div><span>9.9元起</span></div>
-                <a href="#"><img src="img/home/firstBrand/wine.jpg" alt=""></a>
+                <a href="#"><img src="http://127.0.0.1:4000/img/brand/cover/wine.jpg" alt=""></a>
             </div>
             <div>
                 <div class="subtitle">CK制造商</div>
                 <div><span>25元起</span></div>
-                <a href="#"><img src="img/home/firstBrand/shoes.png" alt=""></a>
+                <a href="#"><img src="http://127.0.0.1:4000/img/brand/cover/shoes.png" alt=""></a>
             </div>
-            <div></div>
+            <div class="small-img">
+                <div class="top">
+                    <div class="subTitle">新秀丽制造商</div>
+                    <div class="minP"><span>39.9元起</span></div>
+                    <img src="http://127.0.0.1:4000/img/brand/cover/box.png" alt="">
+                </div>
+                <div class="bottom">
+                    <div class="subTitle">MUJI制造商</div>
+                    <div class="minP"><span>35元起</span></div>
+                    <img src="http://127.0.0.1:4000/img/brand/cover/slippers.jpg" alt="">
+                </div>
+
+            </div>
         </div>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     </div>
 </template>
 <script>
     export default {
         data:function(){
             return{}
-        },
-        mounted(){
-            this.axios.get('http://localhost:4000/newImage/newImages').then(res=>{
-//                console.log(res.data)
-            })
         }
     }
 </script>
@@ -65,26 +71,58 @@
     }
     .imgs>div{
         width:357px;height:325px;
-        border:1px solid lightblue;
         position:relative;
         overflow: hidden;
         text-align: center;
         color:#666;
     }
-    .imgs>div img{
+    .imgs>div:not(:last-child) img{
         position: absolute;
         top:0;left:0;
         z-index: -1;
-
+        transition-duration: 1s;
     }
-
-    .imgs>div .subtitle{
+    .imgs>div:not(:last-child):hover img{
+        transform: scale(1.2);
+    }
+    .imgs>div:not(:last-child) .subtitle{
         font-size:24px;
         margin:20px 0 40px;
     }
-    .imgs>div span{
+    .imgs>div:not(:last-child) span{
         font-size:14px;
         border-top:1px solid #666;
         padding-top:17px;
+    }
+    .imgs .small-img{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    .imgs .small-img>div{
+        text-align: left;
+    }
+    .imgs .small-img>div>img{
+        position: absolute;
+        top:0;left:0;
+        z-index:-1;
+        transition-duration: 1s;
+    }
+    .imgs .small-img>div:hover>img{
+        transform: scale(1.1);
+    }
+    .imgs .small-img>div.bottom>img{
+        top:166px;
+    }
+    .imgs .small-img .subTitle{
+        font-size:20px;
+        margin-bottom:8px;
+        margin-left: 13px;
+    }
+    .imgs .small-img .minP span{
+        font-size:14px;
+        border-top:1px solid #666;
+        padding-top:6px;
+        margin-left: 13px;
     }
 </style>

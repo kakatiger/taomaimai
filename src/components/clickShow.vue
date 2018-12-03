@@ -49,10 +49,17 @@
                 this.mySlide.left = parseInt(this.mySlide.left)+val*1090+'px';
                 if(parseInt(this.mySlide.left) > 0) this.mySlide.left=0+'px'
             },
+            forList(arr){
+                for(let i=0; i<7;i++){
+                    arr=arr.concat(arr)
+                }
+                return arr
+            }
         },
         mounted(){
             this.axios.get('http://localhost:4000/newImage/newImages').then(res=>{
-                this.list=res.data
+                this.list=this.forList(res.data)
+                this.list.sort(function(a,b){ return Math.random()>.5 ? -1 : 1;});
             });
         }
     }

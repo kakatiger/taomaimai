@@ -17,7 +17,7 @@
 
         },
         mounted(){
-            this.axios.get('http://localhost:4000/furnishing/select',{params:{
+            this.axios.get('furnishing/select',{params:{
                 kw:this.$route.query.kw
 //                kw:this.kw
 
