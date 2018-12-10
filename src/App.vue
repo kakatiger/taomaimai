@@ -5,14 +5,6 @@
 </template>
 <script>
   export default {
-      el:"#app",
-      mounted(){
-          window.addEventListener()
-      },
-      methods:{
-
-      }
-
 
   }
 </script>

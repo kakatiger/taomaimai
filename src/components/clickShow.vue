@@ -30,12 +30,11 @@
 <script>
     export default {
         data:function(){return{
-            list:[],
-            isShow:true,current:0,
-            mySlide:{left:'0px'},
-            canMove:false,offsetX:0,
-
-        }
+                list:[],
+                isShow:true,current:0,
+                mySlide:{left:'0px'},
+                canMove:false,offsetX:0,
+            }
         },
         methods:{
             showImg2(index){
@@ -57,7 +56,7 @@
             }
         },
         mounted(){
-            this.axios.get('http://localhost:4000/newImage/newImages').then(res=>{
+            this.axios.get('newImage/newImages').then(res=>{
                 this.list=this.forList(res.data)
                 this.list.sort(function(a,b){ return Math.random()>.5 ? -1 : 1;});
             });

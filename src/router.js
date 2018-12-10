@@ -17,19 +17,12 @@ export default new Router({
         { path:"products", name:'products',component: resolve=>require(['./views/products.vue'],resolve),props:true},
         { path:'shopcart',name:'shopcart',component:resolve=>require(['./views/shopCart.vue'],resolve)},
         { path:'address',name:'address',component:resolve=>require(['./views/address.vue'],resolve)},
-        {path:'order',name:'order',component:resolve=>require(['./views/order.vue'],resolve)}
+        {path:'order',name:'order',component:resolve=>require(['./views/order.vue'],resolve)},
+        {path:'foryou',name:'foryou',component:resolve=>require(['./views/justForYou.vue'],resolve)},
     ]
     },
       {
           path:'/register',component: resolve=>require(['./views/register.vue'],resolve)
-      },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    }
+      }
   ]
 })

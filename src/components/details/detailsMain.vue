@@ -66,10 +66,25 @@
             return{
                 img_src:this.main_obj.show1,current:0,specCurrent:0,count:1,
                 address:'',store:'收藏',
-                myClass:{'icon-xingxing1':true,'active':false,'icon-xingxing':false}
+                myClass:{'icon-xingxing1':true,'active':false,'icon-xingxing':false},
             }
         },
         props:['main_obj','arr','spec'], //父组件传过来的对象
+        // computed:{
+        //     cc(){ //观察购物车数量发生变化即发送异步请求，跟新购物车列表
+        //         return this.$store.getters.getCartCount
+        //     }
+        // },
+        // watch:{
+        //     cc(){//观察购物车数量发生变化即发送异步请求，跟新购物车列表
+        //         var uid=sessionStorage.getItem('uid') //在header里保存的用户id
+                
+        //        this.axios.get('cart/select',{params:{uid}}).then((res)=>{
+        //           this.$store.commit('updateCartList',res.data)
+        //        })
+                
+        //     }
+        // },
         methods:{
             change(e,index){
                 this.img_src=e.target.src
@@ -107,11 +122,49 @@
             },
             addToCart(e){
                 e.preventDefault()
-                this.$store.commit('addCartCount',this.count)
+                this.$store.commit('addCartCount',this.count);
+                (async ()=>{
+                    var res = await new Promise((open)=>{
+                        this.axios.get('user/isLogin').then((res)=>{
+                            console.log(res)
+                            open(res)
+                        })
+                    }) 
+                    if(res.data.ok==0){
+                        this.$message({
+                             message: '请先登录',
+                             type: 'warning'
+                        }); 
+                    }else{
+                    this.uid=res.data.uid
+                    await new Promise(()=>{
+                        this.axios.get('cart/add',{params:{
+                            uid:res.data.uid, img:this.main_obj.show1, title:this.main_obj.title, spec:this.spec[this.specCurrent], price:this.main_obj.price, count:this.count
+                        }})
+                        this.$message({
+                             message: '添加成功',
+                             type: 'success'
+                        });
+                    })}
+                })()               
+                // Promise.all([
+                //     new Promise(open=>{
+                //         this.axios.get('user/isLogin').then((res)=>{
+                //             open(res)
+                //         })
+                //     }),
+                //     new Promise(open=>{
+                //         this.axios.get('user/isLogin').then((res)=>{
+                //             open(res)
+                //         })
+                //     })
+                // ]).then(values=>{
+                    
+                // })      
             }
         },
         mounted(){
-            console.log(this.img_src) //在新打开的页面第一次会显示
+            // console.log(this.$store.getters.getCartCount)
         }
     }
 </script>

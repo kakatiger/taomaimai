@@ -15,7 +15,7 @@
             </div>
             <div class="pic">
                <div class="bigPic">
-                   <div><img :src="list[0].home"></div>
+                   <div><img :src="list[3].home"></div>
                    <div class="salesInfo">
                        <div class="s-info">爆品</div>
                        <div class="s-title"><a href="#">{{list[0].title}}</a></div>
@@ -126,9 +126,11 @@
 
         },
         mounted(){
-            this.axios.get('http://localhost:4000/newImage/newImages').then(res=>{
+            this.axios.get('newImage/newImages').then(res=>{
+
                 console.log(res)
                 this.list=res.data
+                console.log('hah',this.list)
             });
             setInterval(this.ctime,1000)
 

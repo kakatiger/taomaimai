@@ -61,9 +61,8 @@
             <span @click="select()"><i class="icon iconfont icon-sousuo"></i></span>
             <a href="#" v-show="searchF"><i class="icon iconfont icon-gerentouxiang_o"></i></a>
             <a href="#" @click="goCart($event)"><i class="icon iconfont icon-gouwuche_o"><div class="count">
-              {{$store.getters.getCartCount}}
+                {{isNaN($store.getters.getCartCount) ? 0 : $store.getters.getCartCount}}
             </div></i></a>
-
           </div>
         </div>
         <div class="details" :class="scroll>=160?'sFixed':''">
@@ -367,7 +366,7 @@
               </li>
             </ul>
             <ul v-show="!searchF">
-              <li :style="liPadding"><div class="line" ></div><a href="#">为你严选</a></li>
+              <li :style="liPadding"><div class="line" ></div><router-link to="/foryou">为你严选</router-link></li>
               <li :style="liPadding"><a href="#">众筹</a></li>
             </ul>
 
@@ -376,7 +375,7 @@
               <span @click="select()"><i class="icon iconfont icon-sousuo" @click="scrollShow()"></i></span>
               <a href="#"><i class="icon iconfont icon-gereintouxiang_o"></i></a>
               <a href="#" @click="goCart($event)"><i class="icon iconfont icon-gouwuche_o"><div class="count">
-                {{$store.getters.getCartCount}}
+                {{isNaN($store.getters.getCartCount) ? 0 : $store.getters.getCartCount}}
               </div></i></a>
             </div>
           </div>
@@ -398,10 +397,17 @@ export default {
           liPadding:{padding:'0 24px'},
           kw:'',
           hasLogin:false,
-          uname:''
+          uname:'',
       }
   },
     methods:{
+       noticeLogin(){
+         if(sessionStorage.getItem('uid')==undefined){
+          this.$message({
+                             message: res.data.msg
+                        }); 
+         }
+       },
         show(){
             this.kh_hide=''
         },
@@ -438,36 +444,60 @@ export default {
         loginTo(e){
             e.preventDefault()
           this.$store.commit('openLogin')
-        },
+                },
         select(){
             this.$router.push('products?kw='+this.kw)
             location.reload();
-//            console.log(this.kw)
-        },
+          },
         goCart(e){
           e.preventDefault()
-          if(this.hasLogin)
-          this.$router.push('shopcart')
-        },
+          if(this.hasLogin){
+            this.$router.push('shopcart')
+            }else{
+              alert('请先登录')
+            }
+          },
         loginOut(){
+          this.$router.push('/')
             this.axios.get('user/signout').then(res=>{
-                location.reload()
             })
-        }
+            location.reload(true)
+          }
     },
     created(){
     this.guangBo()
     },
     mounted(){
         window.addEventListener('scroll', this.scrollShow);
+        this.$store.commit('updateCartCount',sessionStorage.getItem('cartCount'))
         this.axios.get('user/isLogin').then(res=>{
             console.log(res)
             if(res.data.ok===1){
                 this.hasLogin=true;
                 this.uname=res.data.uname;
-            }else{this.hasLogin=false}
-
-        })
+                sessionStorage.setItem('uid',res.data.uid)
+            }else{
+              this.hasLogin=false
+              sessionStorage.setItem('uid','')
+            }
+        }) 
+    },
+    updated(){//更新阶段，登录状态购物车数量的变化需要放在更新阶段才能实时更新，但是退出登录时会有一些延迟
+            //登录时页面就显示购物车数量
+            if(sessionStorage.getItem('uid')==undefined){
+          console.log('aha1111111')
+          this.$store.commit('updateCartCount',0)
+        }else{
+          this.axios.get('cart/select',{params:{uid:sessionStorage.getItem('uid')}}).then((res)=>{
+                   var sum=0
+                   for(var i=0;i<res.data.length;i++){
+                    sum+=res.data[i].count
+                   }
+                   console.log(sum)
+                   sessionStorage.setItem('cartCount',sum)
+                   this.$store.commit('updateCartCount',sessionStorage.getItem('cartCount'))  
+                })
+        }
     }
 }
 </script>
@@ -516,7 +546,7 @@ export default {
     display: flex;
     justify-content: space-between;
     margin:0 auto;
-    width:1090px;
+    width:1130px;
     position:relative;
   }
   .head-radio>div{
@@ -544,8 +574,6 @@ export default {
     color:white;
     text-decoration: none;
   }
-
-
   .head-radio>div:last-child>ul>li{
     float:left;
     margin-left:16px;
@@ -910,7 +938,4 @@ export default {
     right:101px;
     top:1px;
   }
-
-
-
 </style>

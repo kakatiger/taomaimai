@@ -14,8 +14,8 @@ export default new Vuex.Store({
       hiddenArea(state){state.allshow=false},//控制收货地址
       openLogin(state){state.closeLoginState=true},
       closeLogin(state){state.closeLoginState=false}, //控制登录页面的打开
-      addCartCount(state,c){state.cartCount+=c}//购物车数量增加
-
+      addCartCount(state,c){state.cartCount+=parseInt(c)},//购物车数量增加(详情页)
+      updateCartCount(state,c){state.cartCount=parseInt(c)} //购物车数量改变(购物车页)
   },
   getters: {
       isAllshow:function(state){
@@ -26,6 +26,9 @@ export default new Vuex.Store({
       },
       getCartCount(state){
           return state.cartCount
+      },
+      getCartList(state){
+          return state.cartList
       }
   }
 })

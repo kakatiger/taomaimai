@@ -10,9 +10,7 @@
           </li>
           <li class="selectAllGoods">
              <div class="select-1 select-11">
-                 <input id="selectAll" type="checkbox">
-                 <label for="selectAll"></label>
-                 <span>全部</span>
+                <el-checkbox v-model="checkedAll">全部</el-checkbox>
              </div>
               <div class="goods-2">商品信息</div>
               <div class="price-3">单价</div>
@@ -20,36 +18,32 @@
               <div class="sum-5">小计</div>
               <div class="op-6">操作</div>
           </li>
-          <li class="goods">
-              <div class="select-1"><input type="checkbox" id="selectsingle-01"><label for="selectsingle-01"></label></div>
+           <li class="goods" v-for='(item,index) of list' :key='index'>  <!-- 选中******************************* -->
+              <div class="select-1"> <el-checkbox v-model='singleChecked[index]' @change='checkGoods(index)'></el-checkbox></div>
               <div class="goods-2 goods-info" >
-                  <img src="img/index/furnishing/furnishing03.png" >
+                  <img :src="item.img" >
                   <div>
-                      <div class="title">高弹力女士过膝靴</div>
-                      <div class="spec">黑色 39</div>
+                      <div class="title">{{item.title}}</div>
+                      <div class="spec">{{item.spec}}</div>
                   </div>
               </div>
               <div class="price-3">
-                  ￥449.20
+                  ￥{{item.price}}
               </div>
               <div class="count count-4">
-                  <button>-</button>
-                  <input type="text">
-                  <button>+</button>
+                <el-input-number  size="mini" v-model="item.count" :min="1" ref='count' data-cid='item.cid'  @change="handleChange(item.cid,index)"></el-input-number>
               </div>
               <div class="sum sum-5">
-                  ￥449.20
+                  ￥{{item.price * item.count}}
               </div>
               <div class="op op-6">
                   <div class="goToStore">移入收藏夹</div>
-                  <div class="delete">删除</div>
+                  <div class="delete" @click="deleteGoods(item.cid,index)">删除</div>
               </div>
           </li>
           <li class="pay">
               <div class="select-1 select-11">
-                  <input id="selectAll1" type="checkbox">
-                  <label for="selectAll1"></label>
-                  <span>全部</span>
+                <el-checkbox v-model="checkedAll" @change='checkAll'>全部</el-checkbox>
               </div>
               <div class="deleteAll goods-2">
                   <span>批量删除</span>
@@ -59,19 +53,105 @@
                   <p><span>活动优惠：</span> <span>-¥0.00</span></p>
               </div>
               <div class="actualPay">
-                  <p><span>应付总额</span> <span>¥276.00</span></p>
-                  <p>再购¥19.00免邮 , 去凑单></p>
+                  <p><span>应付总额</span> <span>¥{{sum}}</span></p>
+                  <p>{{sum>=888?'已满足免邮条件>':`再购￥${888-sum}免邮 , 去凑单>`}}</p>
               </div>
               <el-button type="primary">下单</el-button>
           </li>
       </ul>
-
-
     </div>
 </template>
 <script>
     export default {
-
+        data(){
+            return{list:[],//保存购物车列表
+                checkedAll:true,
+                singleChecked:[]
+            }
+        },
+        methods:{
+            checkGoods(j){
+                console.log(this.singleChecked[j].state);
+                console.log(this.singleChecked)
+                // this.checkedAll=false
+                var isAll = true
+                for(var i=0;i<this.singleChecked.length;i++){
+                    isAll=isAll && this.singleChecked[i]
+                    }
+                    console.log(this.singleChecked)
+                    this.checkedAll=isAll
+            },
+            checkAll(){
+                if(this.checkedAll==false){
+                    for(var i=0;i<this.singleChecked.length;i++){
+                        this.singleChecked[i]=false
+                    }
+                    
+                }else{
+                    for(var i=0;i<this.singleChecked.length;i++){
+                        this.singleChecked[i]=true
+                    }                   
+                }
+                console.log(this.singleChecked)
+            },
+            deleteGoods(cid,i){
+                console.log(cid)
+                this.axios.get('cart/delete',{params:{cid}}).then((res)=>{
+                    console.log(res)
+                    this.$message({
+                             message: res.data.msg
+                           }); 
+                    this.list.splice(i,1)
+                })
+            },
+            handleChange(cid,index){
+                var count = this.list[index].count
+                this.axios.get('cart/update',{params:{cid,count}})
+            }
+        },
+        computed:{
+                sum:{
+                   get:function(){
+                        var asum=0
+                        for(var i=0;i<this.list.length;i++){
+                            if(this.singleChecked[i]==true){
+                                asum+=this.list[i].count*this.list[i].price
+                            } 
+                        }
+                        return asum 
+                   }
+                },
+                cartCount(){
+                    var count=0
+                    for(var i=0;i<this.list.length;i++){
+                                count+=this.list[i].count
+                        }
+                        return count
+                        this.$store.commit('addCartCount',count)
+                }                
+        },
+        watch:{
+            cartCount(){
+                // this.$store.commit('addCartCount',this.cartCount)
+                sessionStorage.setItem('cartCount',this.cartCount)
+                this.$store.commit('updateCartCount',sessionStorage.getItem('cartCount'))
+            }
+        },
+        mounted(){      
+                var uid=sessionStorage.getItem('uid') //在header里保存的用户id
+                this.axios.get('cart/select',{params:{uid}}).then((res)=>{
+                   this.list=res.data
+                   console.log(this.list)
+                   var sum=0
+                   for(var i=0;i<this.list.length;i++){
+                    this.singleChecked.push(true) //保存选中状态
+                    sum+=this.list[i].count
+                   }
+                   sessionStorage.setItem('cartCount',sum)
+                   this.$store.commit('updateCartCount',sessionStorage.getItem('cartCount'))
+                   
+                })
+        }
     }
 </script>
 <style scoped>
@@ -110,26 +190,7 @@
         height:22px;
         margin-left: 20px;
     }
-    .select-1 input{
-        width:18px;height: 18px;
-        position: absolute;visibility: hidden;
-    }
-    .select-1>span{
-        padding-left:6px;
-    }
-    .select-1 input+label{
-        display: inline-block;width: 16px;height: 16px;border: 1px solid #fd8845;
-    }
-    .select-1 input:checked+label:after{
-        content: "";position: absolute;left: 2px;bottom: 12px;width: 9px;height: 4px;
-        border: 2px solid #fd8845;
-        border-top-color: transparent;
-        border-right-color: transparent;
-        -ms-transform: rotate(-60deg);
-        -moz-transform: rotate(-60deg);
-        -webkit-transform: rotate(-60deg);
-        transform: rotate(-45deg);
-    }
+   
     .goods-2{
         width:300px;
     }
@@ -151,8 +212,9 @@
         /*align-items: center;*/
     }
     .goods .goods-info img{
-        width:100px;height:100px;
-        border:1px solid black;
+        height:100px;
+        border:1px solid rgb(146, 123, 19);
+        margin-right: 12px;
     }
     .goods .count input{
         width:58px;

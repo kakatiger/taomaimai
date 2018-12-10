@@ -14,23 +14,23 @@
             <div>
                 <div class="subtitle">海外制造商</div>
                 <div><span>9.9元起</span></div>
-                <a href="#"><img src="http://127.0.0.1:4000/img/brand/cover/wine.jpg" alt=""></a>
+                <a href="#"><img src="http://127.0.0.1:5050/img/brand/cover/wine.jpg" alt=""></a>
             </div>
             <div>
                 <div class="subtitle">CK制造商</div>
                 <div><span>25元起</span></div>
-                <a href="#"><img src="http://127.0.0.1:4000/img/brand/cover/shoes.png" alt=""></a>
+                <a href="#"><img src="http://127.0.0.1:5050/img/brand/cover/shoes.png" alt=""></a>
             </div>
             <div class="small-img">
                 <div class="top">
                     <div class="subTitle">新秀丽制造商</div>
                     <div class="minP"><span>39.9元起</span></div>
-                    <img src="http://127.0.0.1:4000/img/brand/cover/box.png" alt="">
+                    <img src="http://127.0.0.1:5050/img/brand/cover/box.png" alt="">
                 </div>
                 <div class="bottom">
                     <div class="subTitle">MUJI制造商</div>
                     <div class="minP"><span>35元起</span></div>
-                    <img src="http://127.0.0.1:4000/img/brand/cover/slippers.jpg" alt="">
+                    <img src="http://127.0.0.1:5050/img/brand/cover/slippers.jpg" alt="">
                 </div>
 
             </div>
